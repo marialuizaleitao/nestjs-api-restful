@@ -11,4 +11,9 @@ export class UserController {
     this.userRepository.save(userData);
     return userData;
   }
+
+  @Get()
+  async findAll() {
+    return this.userRepository.findAll();
+  }
 }
