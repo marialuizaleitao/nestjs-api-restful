@@ -10,13 +10,10 @@ import {
 } from '@nestjs/common';
 import { CreateUserDTO } from './dto/createUser.dto';
 import { UpdateUserDTO } from './dto/updateUser.dto';
-import { UserRepository } from './user.repository';
 import { UserService } from './user.service';
 
 @Controller('/users')
 export class UserController {
-  @Inject()
-  private userRepository: UserRepository;
   @Inject()
   private userService: UserService;
 
