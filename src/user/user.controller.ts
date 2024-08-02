@@ -8,47 +8,33 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { v4 as uuid } from 'uuid';
-import { CreateUserDto } from './dto/createUser.dto';
-import { FindAllUsersDTO } from './dto/findAllUsers.dto';
-import { UpdateUserDto } from './dto/updateUser.dto';
-import { UserEntity } from './user.entity';
-import { UserRepository } from './user.repository';
+import { CreateUserDTO } from './dto/createUser.dto';
+import { UpdateUserDTO } from './dto/updateUser.dto';
+import { UserService } from './user.service';
 
 @Controller('/users')
 export class UserController {
   @Inject()
-  private userRepository: UserRepository;
+  private userService: UserService;
 
   @Post()
-  async create(@Body() userData: CreateUserDto) {
-    const user = new UserEntity();
-    user.id = uuid();
-    user.email = userData.email;
-    user.name = userData.name;
-    user.password = userData.password;
-
-    this.userRepository.save(user);
+  async create(@Body() userData: CreateUserDTO) {
+    const user = await this.userService.create(userData);
     return {
-      user: new FindAllUsersDTO(user.id, user.name),
+      user,
       message: 'User created',
     };
   }
 
   @Get()
   async findAll() {
-    const users = await this.userRepository.findAll();
-    const userList = users.map(
-      (user) => new FindAllUsersDTO(user.id, user.name),
-    );
-
-    return userList;
+    const users = await this.userService.findAll();
+    return users;
   }
 
   @Put('/:id')
-  async update(@Param('id') id: string, @Body() userData: UpdateUserDto) {
-    await this.userRepository.update(id, userData);
-
+  async update(@Param('id') id: string, @Body() userData: UpdateUserDTO) {
+    await this.userService.update(id, userData);
     return {
       message: 'User updated',
     };
@@ -56,8 +42,7 @@ export class UserController {
 
   @Delete('/:id')
   async delete(@Param('id') id: string) {
-    await this.userRepository.delete(id);
-
+    await this.userService.delete(id);
     return {
       message: 'User deleted',
     };
