@@ -1,6 +1,6 @@
 import { Column, Entity } from 'typeorm';
 
-@Entity('product_image')
+@Entity('product_images')
 export class ProductImage {
   @Column({ name: 'url', length: 255, nullable: false })
   url: string;
