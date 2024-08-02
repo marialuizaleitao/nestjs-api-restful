@@ -14,11 +14,14 @@ import { FindAllUsersDTO } from './dto/findAllUsers.dto';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { UserEntity } from './user.entity';
 import { UserRepository } from './user.repository';
+import { UserService } from './user.service';
 
 @Controller('/users')
 export class UserController {
   @Inject()
   private userRepository: UserRepository;
+  @Inject()
+  private userService: UserService;
 
   @Post()
   async create(@Body() userData: CreateUserDto) {
@@ -37,12 +40,8 @@ export class UserController {
 
   @Get()
   async findAll() {
-    const users = await this.userRepository.findAll();
-    const userList = users.map(
-      (user) => new FindAllUsersDTO(user.id, user.name),
-    );
-
-    return userList;
+    const users = await this.userService.findAll();
+    return users;
   }
 
   @Put('/:id')
