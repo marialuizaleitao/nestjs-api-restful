@@ -35,11 +35,21 @@ export class UserService {
 
   async update(id: string, userData: Partial<UserEntity>) {
     const user = await this.userRepository.findOne({ where: { id } });
-  
+
     if (!user) {
       throw new Error('User not found');
     }
-  
+
     await this.userRepository.update(id, userData);
+  }
+
+  async delete(id: string) {
+    const user = await this.userRepository.findOne({ where: { id } });
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    await this.userRepository.delete(id);
   }
 }
