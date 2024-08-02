@@ -3,6 +3,7 @@ import { v4 as uuid } from 'uuid';
 import { ProductEntity } from './product.entity';
 import { ProductRepository } from './product.repository';
 import { CreateProductDTO } from './dto/createProduct.dto';
+import { FindAllProductsDTO } from './dto/findAllProducts.dto';
 
 @Controller('/products')
 export class ProductController {
@@ -22,9 +23,14 @@ export class ProductController {
     product.characteristics = productData.characteristics;
     product.images = productData.images;
 
-    const registeredProduct = this.productRepository.save(product);
+    this.productRepository.save(product);
     return {
-      product: registeredProduct,
+      product: new FindAllProductsDTO(
+        product.id,
+        product.name,
+        product.characteristics,
+        product.images,
+      ),
       message: 'Product created',
     };
   }
