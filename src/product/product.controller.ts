@@ -37,4 +37,12 @@ export class ProductController {
     const products = await this.productService.findAll();
     return products;
   }
+
+  @Put('/:id')
+  async update(@Param('id') id: string, @Body() productData: UpdateProductDTO) {
+    await this.productService.update(id, productData);
+    return {
+      message: 'Product updated',
+    };
+  }
 }

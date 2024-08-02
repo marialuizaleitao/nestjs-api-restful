@@ -40,4 +40,10 @@ export class ProductService {
 
     return productsList;
   }
+
+  async update(id: string, productData: Partial<ProductEntity>) {
+    const product = await this.productRepository.findOneBy({ id });
+    Object.assign(product, productData);
+    await this.productRepository.save(product);
+  }
 }
