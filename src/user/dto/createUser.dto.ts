@@ -1,7 +1,7 @@
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 import { isEmailUnique } from '../validation/is-email-unique';
 
-export class CreateUserDto {
+export class CreateUserDTO {
   @IsString()
   @IsNotEmpty()
   name: string;
