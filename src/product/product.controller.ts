@@ -31,4 +31,10 @@ export class ProductController {
       message: 'Product created',
     };
   }
+
+  @Get()
+  async findAll() {
+    const products = await this.productService.findAll();
+    return products;
+  }
 }

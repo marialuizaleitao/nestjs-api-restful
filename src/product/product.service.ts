@@ -31,4 +31,13 @@ export class ProductService {
       name: product.name,
     };
   }
+
+  async findAll() {
+    const products = await this.productRepository.find();
+    const productsList = products.map(
+      (product) => new FindAllProductsDTO(product.id, product.name),
+    );
+
+    return productsList;
+  }
 }
