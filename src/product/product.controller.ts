@@ -1,9 +1,9 @@
-import { Body, Controller, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
-import { ProductEntity } from './product.entity';
-import { ProductRepository } from './product.repository';
 import { CreateProductDTO } from './dto/createProduct.dto';
 import { FindAllProductsDTO } from './dto/findAllProducts.dto';
+import { ProductEntity } from './product.entity';
+import { ProductRepository } from './product.repository';
 
 @Controller('/products')
 export class ProductController {
@@ -33,5 +33,21 @@ export class ProductController {
       ),
       message: 'Product created',
     };
+  }
+
+  @Get()
+  async findAll() {
+    const products = await this.productRepository.findAll();
+    const productList = products.map(
+      (product) =>
+        new FindAllProductsDTO(
+          product.id,
+          product.name,
+          product.characteristics,
+          product.images,
+        ),
+    );
+
+    return productList;
   }
 }

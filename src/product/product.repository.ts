@@ -9,4 +9,8 @@ export class ProductRepository {
     this.products.push(product);
     return product;
   }
+
+  async findAll() {
+    return this.products;
+  }
 }
