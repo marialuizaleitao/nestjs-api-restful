@@ -32,4 +32,14 @@ export class UserService {
 
     return usersList;
   }
+
+  async update(id: string, userData: Partial<UserEntity>) {
+    const user = await this.userRepository.findOne({ where: { id } });
+  
+    if (!user) {
+      throw new Error('User not found');
+    }
+  
+    await this.userRepository.update(id, userData);
+  }
 }

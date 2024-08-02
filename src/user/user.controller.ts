@@ -37,8 +37,7 @@ export class UserController {
 
   @Put('/:id')
   async update(@Param('id') id: string, @Body() userData: UpdateUserDto) {
-    await this.userRepository.update(id, userData);
-
+    await this.userService.update(id, userData);
     return {
       message: 'User updated',
     };
