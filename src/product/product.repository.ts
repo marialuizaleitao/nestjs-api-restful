@@ -31,4 +31,16 @@ export class ProductRepository {
 
     return product;
   }
+
+  async delete(id: string) {
+    const productIndex = this.products.findIndex(
+      (product) => product.id === id,
+    );
+
+    if (productIndex === -1) {
+      throw new Error('Product not found');
+    }
+
+    this.products.splice(productIndex, 1);
+  }
 }
