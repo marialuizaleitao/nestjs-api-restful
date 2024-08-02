@@ -1,8 +1,9 @@
 import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
-import { UserRepository } from './user.repository';
-import { CreateUserDto } from './dto/createUser.dto';
-import { UserEntity } from './user.entity';
 import { v4 as uuid } from 'uuid';
+import { CreateUserDto } from './dto/createUser.dto';
+import { FindAllUsersDTO } from './dto/findAllUsers.dto';
+import { UserEntity } from './user.entity';
+import { UserRepository } from './user.repository';
 
 @Controller('/users')
 export class UserController {
@@ -18,11 +19,19 @@ export class UserController {
     user.password = userData.password;
 
     this.userRepository.save(user);
-    return { id: user.id, message: 'User created' };
+    return {
+      user: new FindAllUsersDTO(user.id, user.name),
+      message: 'User created',
+    };
   }
 
   @Get()
   async findAll() {
-    return this.userRepository.findAll();
+    const users = await this.userRepository.findAll();
+    const userList = users.map(
+      (user) => new FindAllUsersDTO(user.id, user.name),
+    );
+
+    return userList;
   }
 }
