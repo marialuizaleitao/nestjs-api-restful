@@ -45,4 +45,12 @@ export class ProductController {
       message: 'Product updated',
     };
   }
+
+  @Delete('/:id')
+  async delete(@Param('id') id: string) {
+    await this.productService.delete(id);
+    return {
+      message: 'Product deleted',
+    };
+  }
 }

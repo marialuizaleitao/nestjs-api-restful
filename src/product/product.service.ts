@@ -46,4 +46,14 @@ export class ProductService {
     Object.assign(product, productData);
     await this.productRepository.save(product);
   }
+
+  async delete(id: string) {
+    const product = await this.productRepository.findOne({ where: { id } });
+
+    if (!product) {
+      throw new Error('Product not found');
+    }
+
+    await this.productRepository.delete(id);
+  }
 }
