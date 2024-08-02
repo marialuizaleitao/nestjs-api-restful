@@ -1,7 +1,16 @@
-import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
 import { CreateUserDto } from './dto/createUser.dto';
 import { FindAllUsersDTO } from './dto/findAllUsers.dto';
+import { UpdateUserDto } from './dto/updateUser.dto';
 import { UserEntity } from './user.entity';
 import { UserRepository } from './user.repository';
 
@@ -33,5 +42,14 @@ export class UserController {
     );
 
     return userList;
+  }
+
+  @Put('/:id')
+  async update(@Param('id') id: string, @Body() userData: UpdateUserDto) {
+    await this.userRepository.update(id, userData);
+
+    return {
+      message: 'User updated',
+    };
   }
 }
