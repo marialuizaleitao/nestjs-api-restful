@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Inject,
   Param,
@@ -50,6 +51,15 @@ export class UserController {
 
     return {
       message: 'User updated',
+    };
+  }
+
+  @Delete('/:id')
+  async delete(@Param('id') id: string) {
+    await this.userRepository.delete(id);
+
+    return {
+      message: 'User deleted',
     };
   }
 }
