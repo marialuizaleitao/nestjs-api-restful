@@ -13,4 +13,22 @@ export class ProductRepository {
   async findAll() {
     return this.products;
   }
+
+  async update(id: string, productData: Partial<ProductEntity>) {
+    const product = this.products.find((product) => product.id === id);
+
+    if (!product) {
+      throw new Error('Product not found');
+    }
+
+    Object.entries(productData).forEach(([key, value]) => {
+      if (key === 'id') {
+        return;
+      }
+
+      product[key] = value;
+    });
+
+    return product;
+  }
 }

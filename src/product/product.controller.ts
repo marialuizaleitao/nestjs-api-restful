@@ -1,9 +1,19 @@
-import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Inject,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
 import { CreateProductDTO } from './dto/createProduct.dto';
 import { FindAllProductsDTO } from './dto/findAllProducts.dto';
 import { ProductEntity } from './product.entity';
 import { ProductRepository } from './product.repository';
+import { UpdateProductDTO } from './dto/updateProduct.dto';
 
 @Controller('/products')
 export class ProductController {
@@ -49,5 +59,14 @@ export class ProductController {
     );
 
     return productList;
+  }
+
+  @Put('/:id')
+  async update(@Param('id') id: string, @Body() productData: UpdateProductDTO) {
+    await this.productRepository.update(id, productData);
+
+    return {
+      message: 'Product updated',
+    };
   }
 }
