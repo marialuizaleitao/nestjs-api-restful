@@ -61,10 +61,10 @@ export class CreateProductImagesTable1722722669760
   public async down(queryRunner: QueryRunner): Promise<void> {
     // Drop the foreign key constraint first
     const table = await queryRunner.getTable('product_images');
-    const foreignKey = table!.foreignKeys.find(
+    const foreignKey = table.foreignKeys.find(
       (fk) => fk.columnNames.indexOf('productId') !== -1,
     );
-    await queryRunner.dropForeignKey('product_images', foreignKey!);
+    await queryRunner.dropForeignKey('product_images', foreignKey);
 
     // Drop the product_images table if it exists
     await queryRunner.dropTable('product_images');

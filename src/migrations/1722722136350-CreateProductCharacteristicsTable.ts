@@ -61,10 +61,10 @@ export class CreateProductCharacteristicsTable1722722136350
   public async down(queryRunner: QueryRunner): Promise<void> {
     // Drop the foreign key constraint first
     const table = await queryRunner.getTable('product_characteristics');
-    const foreignKey = table!.foreignKeys.find(
+    const foreignKey = table.foreignKeys.find(
       (fk) => fk.columnNames.indexOf('productId') !== -1,
     );
-    await queryRunner.dropForeignKey('product_characteristics', foreignKey!);
+    await queryRunner.dropForeignKey('product_characteristics', foreignKey);
 
     // Drop the product_characteristics table if it exists
     await queryRunner.dropTable('product_characteristics');
