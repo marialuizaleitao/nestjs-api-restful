@@ -20,7 +20,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
   user_id character varying(100) COLLATE pg_catalog."default"  NOT NULL,
   name character varying(100) COLLATE pg_catalog."default"  NOT NULL,
   price integer  NOT NULL,
-  quantity integer  NOT NULL,
+  availableQuantity integer  NOT NULL,
   description character varying(255) COLLATE pg_catalog."default"  NOT NULL,
   category character varying(100) COLLATE pg_catalog."default"  NOT NULL,
   created_at timestamp without time zone  NOT NULL  DEFAULT  now(),

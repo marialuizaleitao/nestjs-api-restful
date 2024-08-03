@@ -53,8 +53,8 @@ export class CreateProductDTO {
   price: number;
 
   @IsNumber()
-  @Min(0, { message: 'Invalid minimum quantity' })
-  quantity: number;
+  @Min(0, { message: 'Invalid minimum available quantity' })
+  availableQuantity: number;
 
   @IsString()
   @IsNotEmpty({ message: 'Product description cannot be empty' })

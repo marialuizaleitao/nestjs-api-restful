@@ -27,9 +27,9 @@ export class UpdateProductDTO {
   price: number;
 
   @IsNumber()
-  @Min(0, { message: 'Invalid minimum quantity' })
+  @Min(0, { message: 'Invalid minimum available quantity' })
   @IsOptional()
-  quantity: number;
+  availableQuantity: number;
 
   @IsString()
   @IsOptional()
