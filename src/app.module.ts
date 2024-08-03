@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { TypeOrmConfigService } from './config/typeorm-config.service';
+import { DatabaseModule } from './database/database.module';
 import { ProductModule } from './product/product.module';
 import { UserModule } from './user/user.module';
 
@@ -12,10 +11,7 @@ import { UserModule } from './user/user.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    TypeOrmModule.forRootAsync({
-      useClass: TypeOrmConfigService,
-      inject: [TypeOrmConfigService],
-    }),
+    DatabaseModule,
   ],
 })
 export class AppModule {}
