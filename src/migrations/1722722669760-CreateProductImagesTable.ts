@@ -5,7 +5,9 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export class CreateProductImagesTable implements MigrationInterface {
+export class CreateProductImagesTable1722722669760
+  implements MigrationInterface
+{
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -32,7 +34,7 @@ export class CreateProductImagesTable implements MigrationInterface {
           {
             name: 'productId',
             type: 'uuid',
-            isNullable: true,
+            isNullable: false,
           },
         ],
       }),
@@ -51,7 +53,6 @@ export class CreateProductImagesTable implements MigrationInterface {
       }),
     );
 
-    // Optionally set the owner of the table
     await queryRunner.query(
       'ALTER TABLE IF EXISTS public.product_images OWNER TO root',
     );
