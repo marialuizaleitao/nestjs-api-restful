@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateProductsTable implements MigrationInterface {
+export class CreateProductsTable1722721968156 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -65,12 +65,10 @@ export class CreateProductsTable implements MigrationInterface {
           },
         ],
       }),
-      true, // ifExists
+      true // ifExists
     );
 
-    await queryRunner.query(
-      'ALTER TABLE IF EXISTS public.products OWNER TO root',
-    );
+    await queryRunner.query('ALTER TABLE IF EXISTS public.products OWNER TO root');
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
