@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { v4 as uuid } from 'uuid';
 import { CreateProductDTO } from './dto/createProduct.dto';
 import { FindAllProductsDTO } from './dto/findAllProducts.dto';
 import { ProductEntity } from './product.entity';
@@ -15,7 +14,7 @@ export class ProductService {
 
   async create(productData: CreateProductDTO) {
     const product = new ProductEntity();
-    product.id = uuid();
+    
     product.name = productData.name;
     product.userId = productData.userId;
     product.price = productData.price;
