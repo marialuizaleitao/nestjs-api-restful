@@ -20,7 +20,6 @@ export class UpdateProductDTO {
   userId: string;
 
   @IsString()
-  @IsNotEmpty({ message: 'Product name cannot be empty' })
   @IsOptional()
   name: string;
 
