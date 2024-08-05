@@ -14,7 +14,7 @@ export class UserService {
 
   async create(userData: CreateUserDTO) {
     const user = new UserEntity();
-   
+
     user.email = userData.email;
     user.name = userData.name;
     user.password = userData.password;
@@ -50,5 +50,11 @@ export class UserService {
     }
 
     await this.userRepository.delete(id);
+  }
+
+  async isEmailUnique(email: string): Promise<boolean> {
+    const user = this.userRepository.find({ where: { email } });
+
+    return (await user).length === 0;
   }
 }
